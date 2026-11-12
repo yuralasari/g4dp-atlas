@@ -123,7 +123,6 @@ layers:
               - str: "Species: "
               - property: spc_common
                 else: "Not recorded"
-
   - id: harlem-trees-color
     type: circle
     label: Harlem Street Trees — Diameter Colors
