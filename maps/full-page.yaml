@@ -123,3 +123,38 @@ layers:
               - str: "Species: "
               - property: spc_common
                 else: "Not recorded"
+
+  - id: harlem-trees-color
+    type: circle
+    label: Harlem Street Trees — Diameter Colors
+    visible: false
+    source:
+      type: geojson
+      url: "data/Harlem Trees.geojson"
+    paint:
+      circle-radius: 4
+      circle-opacity: 0.8
+      circle-stroke-color: "#ffffff"
+      circle-stroke-width: 0.5
+      circle-color:
+        - step
+        - ["get", "tree_dbh"]
+        - "#d9edc1"
+        - 3
+        - "#a9d58d"
+        - 8
+        - "#6aaf69"
+        - 15
+        - "#34845d"
+        - 25
+        - "#155c45"
+    interactive:
+      hover:
+        cursor: pointer
+      click:
+        popup:
+          - h3:
+              - str: "Harlem Street Tree"
+          - p:
+              - str: "Trunk diameter (inches): "
+              - property: tree_dbh
