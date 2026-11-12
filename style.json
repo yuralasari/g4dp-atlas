@@ -23,7 +23,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "https://api.maptiler.com/tiles/v3/tiles.json?key={key}"
+      "url": "https://tiles.openfreemap.org/planet"
     }
   },
   "sprite": "https://openmaptiles.github.io/positron-gl-style/sprite",
