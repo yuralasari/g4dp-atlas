@@ -6,8 +6,8 @@ type: map
 id: full-page
 config:
   mapStyle: "style.json"
-  center: [-73.9149, 40.6502]
-  zoom: 11.49
+  center: [-73.9654, 40.7829]
+  zoom: 12.5
 
 # MapLibre's own buttons. `navigation` adds zoom in/out and a compass (click
 # it to turn the map back to north). Others: scale, fullscreen, geolocate.
