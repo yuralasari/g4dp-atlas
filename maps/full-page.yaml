@@ -86,3 +86,40 @@ layers:
               - str: "Fur: "
               - property: primary_fur_color
                 else: "not recorded"
+  - id: harlem-trees
+    type: circle
+    label: Harlem Street Trees — Trunk Diameter
+    source:
+      type: geojson
+      url: "data/Harlem Trees.geojson"
+    paint:
+      circle-color: "#328a67"
+      circle-opacity: 0.75
+      circle-stroke-color: "#ffffff"
+      circle-stroke-width: 0.5
+      circle-radius:
+        - step
+        - ["get", "tree_dbh"]
+        - 1
+        - 3
+        - 2
+        - 8
+        - 4
+        - 15
+        - 6
+        - 25
+        - 9
+    interactive:
+      hover:
+        cursor: pointer
+      click:
+        popup:
+          - h3:
+              - str: "Harlem Street Tree"
+          - p:
+              - str: "Trunk diameter (inches): "
+              - property: tree_dbh
+          - p:
+              - str: "Species: "
+              - property: spc_common
+                else: "Not recorded"
