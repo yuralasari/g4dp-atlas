@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Without this line, phones lay the page out at desktop width. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | Project Website</title>
+  <meta name="description" content="A description of your website">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <!-- The header is copied into every page. Changing a link? Change it in all four .html files. -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-name" href="./">Project Website</a>
+      <nav class="site-nav">
+        <a href="inline-maps.html">Inline maps</a>
+        <a href="full-page-map.html">Full page map</a>
+        <a href="scrollytelling.html">Scrollytelling</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container home">
+      <h4>Boilerplate website for presenting spatial narratives <span aria-hidden="true">🗺️</span></h4>
+
+      <h2>About</h2>
+      <p>
+        This is a starting point for a website that tells a story with maps.
+        It is plain HTML and CSS, with
+        <a href="https://docs.maplibre-yaml.org/">maplibre-yaml</a>, which
+        turns a YAML file into a <a href="https://maplibre.org/">MapLibre</a>
+        map. There is nothing to install and no build step: every map on this
+        site is a file in <b>maps/</b> or <b>stories/</b>, so you edit the
+        YAML, not code.
+      </p>
+      <ul>
+        <li>
+          <a href="inline-maps.html">Inline maps</a> (<b>inline-maps.html</b>):
+          maps placed in a page between text and images, with popups, a
+          legend, layer toggles, and a map beside text in two columns.
+        </li>
+        <li>
+          <a href="full-page-map.html">Full page map</a> (<b>full-page-map.html</b>):
+          one map that fills the window, with zoom buttons, a legend and a
+          layer panel.
+        </li>
+        <li>
+          <a href="scrollytelling.html">Scrollytelling</a>
+          (<b>scrollytelling.html</b> and <b>stories/nyc.yaml</b>): a story
+          map whose chapters move the camera and show and hide layers as you
+          scroll.
+        </li>
+      </ul>
+      <p>
+        To find the <code>center</code> and <code>zoom</code> for a map, move
+        around <a href="https://labs.mapbox.com/location-helper/">this location helper</a>
+        and copy the numbers.
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; Project Website</div>
+  </footer>
+</body>
+</html>

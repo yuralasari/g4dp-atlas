@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Without this line, phones lay the page out at desktop width and the story looks tiny. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scrollytelling | Project Website</title>
+  <meta name="description" content="A description of your website">
+
+  <!-- MapLibre's stylesheet. Keep it on the same major version (6) as the import map below. -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="css/site.css">
+  <!-- Tells the browser where "maplibre-gl" lives. The story's map needs it. -->
+  <script type="importmap">
+    { "imports": { "maplibre-gl": "https://unpkg.com/maplibre-gl@6/dist/maplibre-gl.mjs" } }
+  </script>
+  <!-- Defines <ml-map> and <ml-scrollytelling>. "@0.10" loads the newest 0.10.x release. -->
+  <script type="module" src="https://unpkg.com/@maplibre-yaml/core@0.10/register.js"></script>
+</head>
+<!-- class="bleed": no page padding and no footer, for a page that is one big story. -->
+<body class="bleed">
+  <!-- The header is copied into every page. Changing a link? Change it in all four .html files. -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-name" href="./">Project Website</a>
+      <nav class="site-nav">
+        <a href="inline-maps.html">Inline maps</a>
+        <a href="full-page-map.html">Full page map</a>
+        <a href="scrollytelling.html" aria-current="page">Scrollytelling</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!--
+      The story is stories/nyc.yaml: the map, its layers and every chapter.
+      Edit the YAML and reload the page.
+    -->
+    <ml-scrollytelling src="stories/nyc.yaml"></ml-scrollytelling>
+  </main>
+</body>
+</html>

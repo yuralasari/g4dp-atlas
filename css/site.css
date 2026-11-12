@@ -1,0 +1,370 @@
+/*
+  The site's one stylesheet: fonts, colours, the header, text styles and map
+  frames. Every page links it with <link rel="stylesheet" href="css/site.css">.
+
+  Change the colours and fonts in the :root block just below; most of the
+  rest uses them.
+*/
+
+/* ---------------------------------------------------------------- Fonts --
+   Inter (headings, links, interface) and Lora (body text), both under the
+   SIL Open Font License (fonts/LICENSE-*.txt). The paths start at this file,
+   so ../fonts/ is the fonts/ folder. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/inter-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/inter-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/lora-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/lora-latin-600-normal.woff2") format("woff2");
+}
+
+/* ------------------------------------------------------- Colours, sizes -- */
+:root {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --page-bg: #f5f5f4;          /* warm light grey */
+  --header-bg: rgb(245 245 244 / 0.75);
+  --text: rgb(0 0 0 / 0.55);   /* interface text: soft grey */
+  --text-strong: #111;         /* headings */
+  --prose: #374151;            /* body text in articles */
+  --link: rgb(236, 55, 19);    /* orange-red */
+  --border: rgb(0 0 0 / 0.1);
+
+  --page-width: 64rem;         /* the widest the text column gets */
+
+  /* Height of the fixed site header. The full-page map and the story start
+     below it, so change it here if you change the header. */
+  --header-h: 4rem;
+
+  color-scheme: light;
+}
+
+/* Dark colours when the reader's system is set to dark mode. Maps keep their
+   own (light) basemap and white popups. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg: #1c1917;
+    --header-bg: rgb(28 25 23 / 0.6);
+    --text: rgb(255 255 255 / 0.75);
+    --text-strong: #fff;
+    --prose: #d1d5db;
+    --border: rgb(255 255 255 / 0.15);
+    color-scheme: dark;
+  }
+}
+
+/* On phones the header has two rows (site name, then the links). */
+@media (max-width: 639px) {
+  :root {
+    --header-h: 5.25rem;
+  }
+}
+
+/* ----------------------------------------------------------------- Page -- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--link);
+}
+
+/* Centres content and keeps it to a readable width. */
+.container {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* --------------------------------------------------------------- Header -- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: var(--header-bg);
+  backdrop-filter: blur(4px) saturate(2);
+  -webkit-backdrop-filter: blur(4px) saturate(2);
+}
+
+.site-header .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+}
+
+.site-name {
+  font-weight: 600;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  font-size: 0.875rem;
+}
+
+.site-nav a,
+.site-name {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.site-nav a:hover,
+.site-name:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--text-strong);
+}
+
+@media (max-width: 639px) {
+  .site-header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ----------------------------------------------------------------- Main -- */
+main {
+  flex: 1;
+  padding: 8rem 0;
+}
+
+/* Pages that are one big map or story: no padding, start under the header. */
+body.bleed main {
+  padding: var(--header-h) 0 0;
+}
+
+.site-footer {
+  padding: 1.25rem 0;
+  font-size: 0.875rem;
+}
+
+/* ------------------------------------------------------- Text (article) --
+   Wrap a page's text in <article> to get these styles. `:not(ml-map *)`
+   keeps them out of the maps' popups, legends and story cards. */
+article {
+  color: var(--prose);
+  line-height: 1.75;
+}
+
+article :is(h1, h2, h3, h4):not(ml-map *, ml-scrollytelling *),
+.home :is(h1, h2, h3, h4) {
+  color: var(--text-strong);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 2em 0 0.8em;
+}
+
+article h1:not(ml-map *) {
+  font-size: 2.25rem;
+  margin-top: 0;
+}
+article h2:not(ml-map *) {
+  font-size: 1.5rem;
+}
+article h3:not(ml-map *) {
+  font-size: 1.25rem;
+}
+
+article :is(p, li):not(ml-map *, ml-scrollytelling *) {
+  font-family: var(--font-serif);
+}
+
+article p:not(ml-map *, ml-scrollytelling *) {
+  margin: 1.25em 0;
+}
+
+article a:not(ml-map *, ml-scrollytelling *) {
+  font-family: var(--font-sans);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--border);
+  transition: color 0.3s ease-in-out;
+}
+
+article a:not(ml-map *):hover {
+  color: var(--text-strong);
+}
+
+article code:not(ml-map *, ml-scrollytelling *),
+.home code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+/* Images: never wider than the text column, centred. */
+article img:not(ml-map *) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+}
+
+article iframe {
+  display: block;
+  margin: 2rem 0;
+}
+
+/* -------------------------------------------------------------- Maps ----- */
+
+/* <ml-map> has no size of its own: give each one a height (the pages set it
+   in a style="height: …" attribute). */
+ml-map {
+  display: block;
+}
+
+/* A map in an article: a thin border, rounded corners, space around it. */
+.map-frame {
+  margin: 2rem 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+
+/* Shown for the moment before maplibre-yaml's script has loaded. */
+ml-map:not(:defined) {
+  display: grid;
+  place-items: center;
+  background: #e7e5e4;
+  color: #57534e;
+  font: 13px var(--font-sans);
+}
+ml-map:not(:defined)::before {
+  content: "Loading map…";
+}
+
+/* Popups have a white background: keep their text dark in dark mode too. */
+.maplibregl-popup-content {
+  color: #333;
+}
+
+/* Two columns, a map beside text. Below 768px wide they stack, map first. */
+.two-columns {
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 2rem 0;
+}
+.two-columns .map-frame {
+  margin: 0;
+}
+.two-columns h3 {
+  margin-top: 0;
+}
+@media (min-width: 768px) {
+  .two-columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* The full-page map: fills the window below the header. */
+.full-page-map {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* A note in a corner of the full-page map (hidden on phones, where it would
+   cover most of the map). */
+.map-note {
+  /* `width`, not `max-width`: the map sets max-width on corner content itself. */
+  width: 16rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  background: rgb(255 255 255 / 0.9);
+  color: #44403c;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+}
+@media (max-width: 639px) {
+  .map-note {
+    display: none;
+  }
+}
+/* If the map can't load, its error card explains why; hide the note. */
+ml-map:has(.ml-map-error) .map-note {
+  display: none;
+}
+
+/* The story's map sticks below the fixed site header. (`html` in front makes
+   this rule win over the story's own stylesheet, whichever loads first.) */
+html ml-scrollytelling {
+  --ml-scrolly-map-top: var(--header-h);
+  --ml-scrolly-map-height: calc(100vh - var(--header-h));
+}
+
+/* ------------------------------------------------------------ Home page -- */
+.home h4 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+.home h2 {
+  font-size: 1.75rem;
+}
+.home ul {
+  padding-left: 1.5rem;
+}
+.home li {
+  margin: 1rem 0;
+}
+.home b {
+  font-weight: 600;
+}

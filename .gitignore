@@ -1,0 +1,14 @@
+# macOS and Windows clutter
+.DS_Store
+Thumbs.db
+
+# editors
+/.history
+
+# in case you install tools with npm
+node_modules/
+npm-debug.log*
+
+# environment variables (never commit secrets)
+.env
+.env.*

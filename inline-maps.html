@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Without this line, phones lay the page out at desktop width and the maps look tiny. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inline maps | Project Website</title>
+  <meta name="description" content="A description of your website">
+
+  <!-- MapLibre's stylesheet. Keep it on the same major version (6) as the import map below. -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="css/site.css">
+  <!-- Tells the browser where "maplibre-gl" lives. The maps need it. -->
+  <script type="importmap">
+    { "imports": { "maplibre-gl": "https://unpkg.com/maplibre-gl@6/dist/maplibre-gl.mjs" } }
+  </script>
+  <!-- Defines <ml-map> and <ml-scrollytelling>. "@0.10" loads the newest 0.10.x release. -->
+  <script type="module" src="https://unpkg.com/@maplibre-yaml/core@0.10/register.js"></script>
+</head>
+<body>
+  <!-- The header is copied into every page. Changing a link? Change it in all four .html files. -->
+  <header class="site-header">
+    <div class="container">
+      <a class="site-name" href="./">Project Website</a>
+      <nav class="site-nav">
+        <a href="inline-maps.html" aria-current="page">Inline maps</a>
+        <a href="full-page-map.html">Full page map</a>
+        <a href="scrollytelling.html">Scrollytelling</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <article>
+
+        <h1>Inline maps</h1>
+
+        <p>
+          This page is <code>inline-maps.html</code>: plain HTML for the text,
+          and an <code>&lt;ml-map&gt;</code> element wherever you want a map.
+          Each map's layers, colours and popups live in a YAML file in
+          <code>maps/</code>, named by the element's <code>src</code>.
+        </p>
+
+        <h2>Points from a data file, with a popup and a legend</h2>
+
+        <p>
+          Every sighting from the 2018 Central Park Squirrel Census, coloured
+          by fur colour. <strong>Click a squirrel</strong> to see its details.
+          The data is <code>data/squirrel20241021.geojson</code>; the map is
+          <code>maps/squirrels.yaml</code>.
+        </p>
+
+        <!-- class="map-frame" gives the map a border; style sets its height. -->
+        <ml-map src="maps/squirrels.yaml" class="map-frame" style="height: 60vh;"></ml-map>
+
+        <h2>Lines from a data file</h2>
+
+        <p>
+          Manhattan's bike lanes, a snapshot from
+          <a href="https://opendata.cityofnewyork.us/">NYC Open Data</a> saved
+          in <code>data/manhattan-bike-lanes.geojson</code>
+          (<code>maps/bike-lanes.yaml</code>). Click a lane for its street name.
+        </p>
+
+        <ml-map src="maps/bike-lanes.yaml" class="map-frame" style="height: 50vh;"></ml-map>
+
+        <h2>Turning layers on and off</h2>
+
+        <p>
+          Give a layer a <code>label:</code> and it gets a checkbox in the
+          panel at the top right. The bike lanes start switched off
+          (<code>visible: false</code>); tick them
+          (<code>maps/layers.yaml</code>).
+        </p>
+
+        <ml-map src="maps/layers.yaml" class="map-frame" style="height: 50vh;"></ml-map>
+
+        <h2>A map beside text</h2>
+
+        <p>
+          Put a map and text side by side with two columns. Below a
+          medium-sized screen the columns stack, map first. This map doesn't
+          move: <code>interactive: false</code> in <code>maps/static.yaml</code>.
+        </p>
+
+        <!-- .two-columns is in css/site.css. -->
+        <div class="two-columns">
+          <ml-map src="maps/static.yaml" class="map-frame" style="height: 320px;"></ml-map>
+          <div>
+            <h3>Central Park</h3>
+            <p>
+              843 acres in the middle of Manhattan, and home to a few thousand
+              eastern gray squirrels. Write anything here: paragraphs,
+              <strong>bold</strong>, lists, links such as
+              <a href="https://www.centralparknyc.org/">the Central Park Conservancy</a>.
+            </p>
+          </div>
+        </div>
+
+        <h2>Images</h2>
+
+        <p>
+          To show an image, put the file in <code>img/</code> and add an
+          <code>&lt;img&gt;</code> tag. Always write an <code>alt</code> text
+          that describes the image for readers who can't see it. Keep image
+          files small (a few hundred KB): resize big scans and photos before
+          you add them, because the browser downloads the whole file.
+        </p>
+
+        <img
+          src="img/fisk02.jpg"
+          width="600"
+          alt="Harold Fisk's 1944 map of the ancient courses of the Mississippi River">
+
+        <h2>Embeds</h2>
+
+        <p>
+          Any HTML works, for example an <code>&lt;iframe&gt;</code> with a
+          video or another site's map:
+        </p>
+
+        <iframe
+          title="OpenStreetMap: Central Park"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-73.9819,40.7644,-73.9496,40.8006&amp;layer=mapnik"
+          style="width: 100%; height: 300px; border: 0;"
+          loading="lazy"></iframe>
+
+        <h2>A subsection</h2>
+
+        <p>You can go into more detail here.</p>
+
+        <h3>A further subsection</h3>
+
+        <p>And even more detail here.</p>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">&copy; Project Website</div>
+  </footer>
+</body>
+</html>
