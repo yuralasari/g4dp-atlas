@@ -27,7 +27,7 @@
     }
   },
   "sprite": "https://openmaptiles.github.io/positron-gl-style/sprite",
-  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={key}",
+  "glyphs": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf"
   "layers": [
     {
       "id": "background",
